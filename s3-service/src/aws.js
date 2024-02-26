@@ -1,52 +1,44 @@
-import { S3Client, GetObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3';
-import fs, { writeFile } from 'fs';
-import path from 'path';
+import { S3Client, ListObjectsV2Command, CopyObjectCommand } from '@aws-sdk/client-s3';
+import dotenv from 'dotenv';
+dotenv.config()
+
 const s3Client = new S3Client({
     region: process.env.AWS_REGION,
     credentials: {
-        accessfileId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessfile: process.env.AWS_SECRET_ACCESS_KEY,
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_ID,
     },
 })
 
-export async function downloadFolderFromS3(bucketName, folderfile, localFolderPath) {
+export async function copyS3Folder(src, dest) {
     try {
         const listCommand = new ListObjectsV2Command({
-            Bucket: bucketName,
-            Prefix: folderfile,
+            Bucket: process.env.AWS_BUCKET_NAME,
+            Prefix: src,
         });
 
         const { Contents } = await s3Client.send(listCommand);
 
-        if (!fs.existsSync(localFolderPath)) {
-            fs.mkdirSync(localFolderPath, { recursive: true });
-        }
-
         for (const obj of Contents) {
-            const { file } = obj;
-            const dirname = path.dirname(file);
+            const { Key } = obj;
 
-            if (!fs.existsSync(dirname)) {
-                fs.mkdirSync(dirname, { recursive: true });
-            }
+            if (!Key) return;
 
-            const { Body } = await s3Client.send(
-                new GetObjectCommand({ Bucket: bucketName, file })
-            );
+            const destKey = Key.replace(src, dest);
 
-            const fileStream = fs.createWriteStream(file);
-            await new Promise((resolve, reject) => {
-                Body.pipe(fileStream)
-                    .on("error", reject)
-                    .on("finish", () => resolve());
+            const copyCommand = new CopyObjectCommand({
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: destKey,
+                CopySource: `${process.env.AWS_BUCKET_NAME}/${Key}`
             });
+
+            await s3Client.send(copyCommand);
+
+            console.log(`Copied ${Key} to ${destKey}`);
         }
 
-        console.log("Download complete!");
+        console.log("Coping complete!");
     } catch (err) {
-        console.error("Error downloading folder from S3:", err);
+        console.error("Error coping folder from S3:", err);
     }
 }
-
-
-await downloadFolderFromS3('code-sync-hub', 'vite-project/', 'vite-project/');
