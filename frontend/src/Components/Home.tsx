@@ -2,13 +2,13 @@ import { useEffect } from "react"
 
 const Home = () => {
     useEffect(() => {
-        let inner = document.querySelector("#inner");
-        let innerRect = inner?.getBoundingClientRect();
-        let innerHeight = innerRect?.bottom-innerRect?.top;
-        let text1 = document.querySelector("#text1");
-        let text2 = document.querySelector("#text2");
-        let content = document.querySelector("#content");
-        let k = 20;
+        const inner = document.querySelector("#inner");
+        const innerRect = inner?.getBoundingClientRect() ? inner.getBoundingClientRect() : null;
+        const innerHeight = (innerRect?.bottom && innerRect?.top) ? innerRect.bottom - innerRect.top : 0;
+        const text1 = document.querySelector("#text1");
+        const text2 = document.querySelector("#text2");
+        const content = document.querySelector("#content");
+        const k = 20;
         const textAnimate = () => {
             text1.style.fontSize = (60+(window.scrollY/(k)))+"px";
             text2.style.fontSize = (24+(window.scrollY/(k)))+"px";
