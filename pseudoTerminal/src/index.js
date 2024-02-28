@@ -1,20 +1,21 @@
-import * as os from 'node:os';
-import * as pty from 'node-pty';
+import dotenv from "dotenv";
+import express from "express";
+import {createServer} from "http";
+import cors from "cors";
 
-const shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash';
 
-const ptyProcess = pty.spawn(shell, [], {
-    name: 'xterm-color',
-    cols: 80,
-    rows: 30,
-    cwd: process.env.HOME,
-    env: process.env
+dotenv.config();
+const app = express();
+app.use(cors({
+    cors:"*",
+    methods:["GET","POST"]
+}));
+
+const httpServer = createServer(app);
+
+const port = 3000;
+
+httpServer.listen(port,()=>{
+    console.log(`Server Running at ${port}`);
 });
 
-ptyProcess.onData((data) => {
-    process.stdout.write(data);
-});
-
-ptyProcess.write('ls\r');
-ptyProcess.resize(100, 40);
-ptyProcess.write('ls\r');
