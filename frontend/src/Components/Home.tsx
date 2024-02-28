@@ -1,61 +1,54 @@
-import { useEffect } from "react";
+import { useEffect } from "react"
 
 const Home = () => {
     useEffect(() => {
+        let inner = document.querySelector("#inner");
+        let innerRect = inner?.getBoundingClientRect();
+        let innerHeight = innerRect?.bottom-innerRect?.top;
+        let text1 = document.querySelector("#text1");
+        let text2 = document.querySelector("#text2");
+        let content = document.querySelector("#content");
+        let k = 20;
         const textAnimate = () => {
-            const inner = document.querySelector<HTMLDivElement>("#inner");
-            const innerRect = inner?.getBoundingClientRect();
-            const innerHeight = (innerRect) ? innerRect?.bottom - innerRect?.top : null;
-            const text1 = document.querySelector<HTMLParagraphElement>("#text1");
-            const text2 = document.querySelector<HTMLParagraphElement>("#text2");
-            const content = document.querySelector<HTMLDivElement>("#content");
-            const startButton = document.querySelector<HTMLButtonElement>("#start");
-            const k = 20;
-            
-            if (!inner || !innerRect || !text1 || !text2 || !content || !startButton) return;
-
-            text1.style.fontSize = `${60 + (window.scrollY / k)}px`;
-            text2.style.fontSize = `${24 + (window.scrollY / k)}px`;
-            content.style.opacity = `${1 - (window.scrollY / (k * 15))}`;
-
+            text1.style.fontSize = (60+(window.scrollY/(k)))+"px";
+            text2.style.fontSize = (24+(window.scrollY/(k)))+"px";
+            content.style.opacity = 1-(window.scrollY/(k*15));
             if (window.scrollY >= 10) {
-                startButton.style.opacity = "0";
+                document.querySelector("#start").style.opacity = 0;
             } else {
-                startButton.style.opacity = "1";
+                document.querySelector("#start").style.opacity = 1;
             }
-            if (innerHeight) {
-                if (window.scrollY >= 0 && window.scrollY <= innerHeight) {
-                    inner.classList.remove(...inner.classList);
-                    inner.classList.add("h-lvh","w-lvw","flex","justify-center","items-center","fixed","top-0");
-                } else if (window.scrollY >= innerHeight) {
-                    inner.classList.remove(...inner.classList);
-                    inner.classList.add("h-lvh","w-lvw","flex","justify-center","items-center","relative","top-[100vh]");
-                } else {
-                    inner.classList.remove(...inner.classList);
-                    inner.classList.add("h-lvh","w-lvw","flex","justify-center","items-center","relative","top-0");
-                }
+            if (window.scrollY >= 0 && window.scrollY <= innerHeight) {
+                inner.style.position = "fixed";
+                inner.style.top = "0px";
             }
-        };
-
+            else if (window.scrollY >= innerHeight) {
+                inner.style.position = "relative";
+                inner.style.top = "100vh";
+            }
+            else {
+                inner.style.position = "relative";
+                inner.style.top = "0px";
+            }
+        }
         document.addEventListener("scroll", textAnimate);
-        return () => document.removeEventListener("scroll", textAnimate);
-    }, []);
-
+        return () => document.removeEventListener("scroll",textAnimate);
+    },[])
     return (
         <div className="overflow-x-hidden">
             <div id="outer" className="h-[200vh] w-lvw relative">
                 <div id="inner" className="h-lvh w-lvw flex justify-center items-center">
-                    <div id="content" className="flex flex-col gap-7 items-center">
+                    <div id="content" className="flex  flex-col gap-7 items-center">
                         <p id="text1" className="text-6xl">Idea to software, fast</p>
                         <p id="text2" className="text-2xl text-center">Build software collaboratively with the power of AI, on any 
                         <br/>
                         device, without spending a second on setup</p>
-                        <button id="start" style={{ boxShadow: "1px 1px 20px blue, -1px -1px 20px blue" }} className="py-3 px-2 text-lg font-semibold rounded-2xl">Start Creating</button>
+                        <button id="start" style={{boxShadow: "1px 1px 20px blue, -1px -1px 20px blue"}} className="py-3 px-2 text-lg font-semibold rounded-2xl">Start Creating</button>
                     </div>
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Home;
+export default Home
