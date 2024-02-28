@@ -54,7 +54,7 @@ const Home = () => {
                         <p id="text2" className="text-2xl text-center">Build software collaboratively with the power of AI, on any 
                         <br/>
                         device, without spending a second on setup</p>
-                        <button id="start" style={{ boxShadow: "1px 1px 20px blue, -1px -1px 20px blue" }} className="py-3 px-2 text-lg font-semibold rounded-2xl">Start Creating</button>
+                        <button id="start" style={{ boxShadow: "1px 1px 20px blue, -1px -1px 20px blue" }} className="py-3 px-2 text-lg font-semibold rounded-2xl cursor-pointer">Start Creating</button>
                     </div>
                 </div>
             </div>
