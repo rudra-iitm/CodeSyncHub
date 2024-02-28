@@ -19,6 +19,7 @@
     "jquery-ui-dist": "^1.13.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-resizable": "^3.0.5",
     "react-router-dom": "^6.22.1",
     "tailwind-merge": "^2.2.1"
   },
