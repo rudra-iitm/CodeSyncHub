@@ -1,43 +1,38 @@
-import {fork,IPty} from 'node-pty';
+import { fork } from "node-pty"
 
-const SHELL = "bash";
+const SHELL = "bash"
 
-class TerminalManager{
-    constructor(){
-        this.sessions = {}; 
+export class TerminalManager {
+  sessions = {}
+
+  constructor() {
+    this.sessions = {}
+  }
+
+  createPty(id, replId, onData) {
+    let term = fork(SHELL, [], {
+      cols: 100,
+      name: "xterm",
+      cwd: `/workspace`
+    })
+
+    term.on("data", data => onData(data, term.pid))
+    this.sessions[id] = {
+      terminal: term,
+      replId
     }
+    term.on("exit", () => {
+      delete this.sessions[term.pid]
+    })
+    return term
+  }
 
-    createPty(id,replId,onData) {
-        let term = fork(SHELL,[],{
-            cols:100,
-            name:'xterm',
-            cwd:'/workspace'
-        });
+  write(terminalId, data) {
+    this.sessions[terminalId]?.terminal.write(data)
+  }
 
-        term.on('data',(data)=> onData(data,term.pid));
-        this.sessions[id] = {
-            terminal: term,
-            replId
-        };
-        term.on('exit',()=>{
-            delete this.sessions[term.pid];
-        });
-
-        return term;
-    }
-
-    write(terminalId,data){
-        if(this.sessions[terminalId]){
-            this.sessions[terminalId].terminal.write(data);
-        }
-    }
-
-    clear(terminalId){
-        if(this.sessions[terminalId]){
-            this.sessions[terminalId].terminal.kill();
-            delete this.sessions[terminalId];
-        }
-    }
+  clear(terminalId) {
+    this.sessions[terminalId].terminal.kill()
+    delete this.sessions[terminalId]
+  }
 }
-
-export {TerminalManager};
