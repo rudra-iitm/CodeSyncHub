@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { BackgroundBeams } from "./ui/background-beams";
 
 const Home = () => {
     useEffect(() => {
@@ -45,7 +46,8 @@ const Home = () => {
 
     return (
         <div className="overflow-x-hidden">
-            <div id="outer" className="h-[200vh] w-lvw relative">
+            <div id="outer" className="h-[200vh] w-lvw relative bg-black text-white">
+                <BackgroundBeams/>
                 <div id="inner" className="h-lvh w-lvw flex justify-center items-center">
                     <div id="content" className="flex flex-col gap-7 items-center">
                         <p id="text1" className="text-6xl">Idea to software, fast</p>
