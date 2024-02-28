@@ -19,9 +19,11 @@ const Home = () => {
             content.style.opacity = `${1 - (window.scrollY / (k * 15))}`;
 
             if (window.scrollY >= 10) {
-                startButton.style.opacity = "0";
+                startButton.classList.remove(...startButton.classList);
+                startButton.classList.add("py-3","px-2","text-lg","font-semibold","rounded-2xl","opacity-0");
             } else {
-                startButton.style.opacity = "1";
+                startButton.classList.remove(...startButton.classList);
+                startButton.classList.add("py-3","px-2","text-lg","font-semibold","rounded-2xl","opacity-100");
             }
             if (innerHeight) {
                 if (window.scrollY >= 0 && window.scrollY <= innerHeight) {
