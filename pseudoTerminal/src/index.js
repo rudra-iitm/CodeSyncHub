@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import {createServer} from "http";
 import cors from "cors";
+import { initWs } from "./ws";
 
 
 dotenv.config();
@@ -12,7 +13,7 @@ app.use(cors({
 }));
 
 const httpServer = createServer(app);
-
+initWs(httpServer);
 const port = 3000;
 
 httpServer.listen(port,()=>{
