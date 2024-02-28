@@ -15,7 +15,7 @@ const Login:React.FC = () => {
         navigate('/register');
         // Add your logic here
       };
-  return (
+    return (
     <div className="flex flex-col justify-between bg-[#0E0E10] h-lvh w-lvw p-0 m-0">
         <div className="bg-[#292E3E] z-10 w-lvw flex flex-row items-center justify-between" style={{height:'8%'}}>
             <div className="flex flex-row h-full space-x-10 items-center">

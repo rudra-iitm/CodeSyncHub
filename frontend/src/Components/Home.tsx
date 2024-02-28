@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import { BackgroundBeams } from "./ui/background-beams";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+    const navigate=useNavigate();
+    const buttonclickHandler=()=>{
+        navigate('/project')
+    }
     useEffect(() => {
         const textAnimate = () => {
             const inner = document.querySelector<HTMLDivElement>("#inner");
@@ -54,7 +59,7 @@ const Home = () => {
                         <p id="text2" className="text-2xl text-center">Build software collaboratively with the power of AI, on any 
                         <br/>
                         device, without spending a second on setup</p>
-                        <button id="start" style={{ boxShadow: "1px 1px 20px blue, -1px -1px 20px blue" }} className="py-3 px-2 text-lg font-semibold rounded-2xl cursor-pointer">Start Creating</button>
+                        <button id="start" onClick={buttonclickHandler} style={{ boxShadow: "1px 1px 20px blue, -1px -1px 20px blue" }} className="py-3 px-2 text-lg font-semibold rounded-2xl cursor-pointer">Start Creating</button>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import Layout from './Components/Layout';
 import Editor from './Components/Editor';
 import Register from './Components/Register';
 import Login from './Components/Login';
+import ProjectChoos from './Components/ProjectChoos';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
        </Route>
         <Route path="/register" element={<Register/>} />
         <Route path="/login" element={<Login/>} />
-      <Route path="/editor" element={<Editor/>} />
+        <Route path="/project" element={<ProjectChoos/>} />
+        <Route path="/editor" element={<Editor/>} />
       <Route path="*" element={<h1>Error 404 Page not found !!</h1>} />
     </Routes>
    </BrowserRouter>
