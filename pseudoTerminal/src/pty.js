@@ -40,4 +40,4 @@ class TerminalManager{
     }
 }
 
-module.exports = {TerminalManager};
+export {TerminalManager};
