@@ -30,7 +30,7 @@ app.post('/project', async (req, res) => {
 
     await copyS3Folder(`templates/${tech}`, `work_space/${replId}`);
 
-    return res.status(200).json({ message: `Project created at ${replId}` });
+    return res.status(200).json({ message: `Project created at ${replId}`, id: replId });
 });
 
 app.listen(3000, () => {
