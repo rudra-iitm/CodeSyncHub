@@ -40,3 +40,35 @@
 .read-the-docs {
   color: #888;
 } */
+
+/* Add this CSS to your stylesheet or component styles */
+
+.react-resizable {
+  position: relative;
+}
+
+.react-resizable-handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border: 1px solid #000;
+  box-sizing: border-box;
+}
+
+.react-resizable-handle-e {
+  height: 100%;
+  width: 4px;
+  background-color: green;
+  right: 0;
+  cursor: col-resize;
+}
+
+.react-resizable-handle-s {
+  height: 4px;
+  width: 100%;
+  background-color: green;
+  bottom: 0;
+  left: 0;
+  cursor: row-resize;
+}
