@@ -12,7 +12,7 @@ const Navbar = () => {
         <a href="http://localhost:5173/"><h1 className="text-white font-thin font-mono">Home</h1></a>
         <a href="http://localhost:5173/"><h1 className="text-white font-thin font-mono">Features</h1></a>
         <a href="http://localhost:5173/"><h1 className="text-white font-thin font-mono">Blogs</h1></a>
-        <a href="http://localhost:5173/"><h1 className="text-white font-thin font-mono">Careers</h1></a>
+        <a href="/editor"><h1 className="text-white font-thin font-mono">Editor</h1></a>
         <a href="http://localhost:5173/"><h1 className="text-white font-thin font-mono">About Us</h1></a>
       </div>
       <div>
