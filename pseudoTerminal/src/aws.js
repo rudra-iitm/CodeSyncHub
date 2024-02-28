@@ -1,4 +1,4 @@
-import { S3Client, ListObjectsV2Command, CopyObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, ListObjectsV2Command, CopyObjectCommand, GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
@@ -87,5 +87,20 @@ export async function fetchS3Folder(src, dest) {
         console.log("Download complete!");
     } catch (err) {
         console.error("Error downloading folder from S3:", err);
+    }
+}
+
+export async function saveToS3(key, filePath, content) {
+    try {
+        const command = new PutObjectCommand({
+            Bucket: process.env.AWS_BUCKET,
+            Key: `${key}${filePath}`,
+            Body: content,
+        })
+
+        await s3Client.send(command)
+        console.log(`uploaded ${filePath}`)
+    } catch (err) {
+        console.log('Error uploaded file to S3', err)
     }
 }
