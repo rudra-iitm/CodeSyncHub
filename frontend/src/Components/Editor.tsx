@@ -1,5 +1,10 @@
 // import React from 'react'
 import { useEffect, useState } from "react"
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "./ui/resizable"
 import logo from "../assets/code-editor-favicon-white.png"
 import CodeEditor from "./CodeEditor"
 import Terminal from "./Terminal"
@@ -37,13 +42,23 @@ const Editor = () => {
       <div className="bg-green-600 flex-grow w-lvw h-[calc(100vh-48px)] flex overflow-hidden">
         <div className="h-full w-56 bg-pink-600">
         </div>
-        <div id="editorArea" className="flex-grow flex">
-          <CodeEditor/>
-          <div className="w-2/5 flex flex-grow flex-col">
-            <Webview/>
-            <Terminal/>
-          </div>
-        </div>
+        <ResizablePanelGroup direction="horizontal">
+          <ResizablePanel>
+            <CodeEditor/>
+          </ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel>
+            <ResizablePanelGroup direction="vertical">
+              <ResizablePanel>
+                <Webview/>
+              </ResizablePanel>
+              <ResizableHandle />
+              <ResizablePanel>
+                <Terminal/>
+              </ResizablePanel>
+            </ResizablePanelGroup>
+          </ResizablePanel>
+        </ResizablePanelGroup>
       </div>
     </div>
   )

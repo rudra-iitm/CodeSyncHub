@@ -1,6 +1,8 @@
 const Terminal = () => {
     return (
-        <div className="h-1/2 flex-grow bg-yellow-600"></div>
+        <div className="flex justify-center items-center">
+            <h1>Terminal</h1>
+        </div>
     )
 }
 
